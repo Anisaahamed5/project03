@@ -69,7 +69,7 @@ function Task(props) {
     return <li className="list-group-item">
         <input className="check" type="checkbox" checked={done} onChange={toggleTask}/>
         {text}
-        <button className="btn btn-danger pull-right" onClick={deleteTask}>Delete</button>
+        <button className="btn btn-danger float-right" onClick={deleteTask}>Delete</button>
     </li>;
 }
 
@@ -90,6 +90,7 @@ class Todos extends React.Component {
         this.addTodo = this.addTodo.bind(this);
         this.toggleTodo = this.toggleTodo.bind(this);
         this.delete = this.delete.bind(this);
+
     }
 
     addTodo(taskName) {
