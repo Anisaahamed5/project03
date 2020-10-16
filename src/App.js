@@ -22,8 +22,13 @@ function App() {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">Todos<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Contact</a>
+            <Link to="/">
+              <a class="nav-item nav-link" href="#">Todos</a>
+            </Link>
+
+            <Link to="/contact">
+              <a class="nav-item nav-link" href="#">Contact</a>
+            </Link>
           </div>
         </div>
       </nav>

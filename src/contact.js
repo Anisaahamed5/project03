@@ -36,6 +36,7 @@ class Contact extends React.Component {
                     <input type="textarea" className="form-control" id="comments"/>
                 </div>
 
+                <button type="button" className="btn btn-primary">Submit</button>
 
 
             </>
