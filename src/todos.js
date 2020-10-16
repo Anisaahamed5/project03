@@ -31,7 +31,7 @@ class AddTodo extends React.Component {
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Add task..." onChange={this.task_change} value={this.state.task}/>
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onClick={this.submit}>Submit</button>
+                            <button class="btn btn-outline-secondary" type="button" onClick={this.submit}>Add</button>
                         </div>
                     </div>
                   {/* </div> <span class="input-group-addon">
@@ -46,7 +46,7 @@ function Tasks(props) {
     let tasks = props.tasks;
     
     let elements = tasks.map(function(e) {
-        return <Task task={e} toggle={props.toggle}></Task>
+        return <Task task={e} toggle={props.toggle} delete={props.delete}></Task>
     });
 
     return <ul class="list-group">
@@ -62,9 +62,14 @@ function Task(props) {
         props.toggle(props.task);
     }
 
+    function deleteTask() {
+        props.delete(props.task);
+    }
+
     return <li className="list-group-item">
         <input className="check" type="checkbox" checked={done} onChange={toggleTask}/>
         {text}
+        <button className="btn btn-danger pull-right" onClick={deleteTask}>Delete</button>
     </li>;
 }
 
@@ -78,19 +83,20 @@ class Todos extends React.Component {
 
         this.state = {
             todos: [
-                
+
             ]
         }
 
         this.addTodo = this.addTodo.bind(this);
         this.toggleTodo = this.toggleTodo.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
-    addTodo(text) {
+    addTodo(taskName) {
         let newTodos = this.state.todos;
         newTodos.push({
             done: false,
-            text: text
+            text: taskName
         });
 
         this.setState({
@@ -100,8 +106,8 @@ class Todos extends React.Component {
 
     toggleTodo(todo) {
         let index = this.state.todos.indexOf(todo);
-        
         let newTodos = this.state.todos;
+
         newTodos[index] = {
             done: !todo.done,
             text: todo.text
@@ -109,11 +115,20 @@ class Todos extends React.Component {
 
         this.setState({todos: newTodos});
     }
+
+    delete(todo) {
+        let index = this.state.todos.indexOf(todo);
+        let newTodos = this.state.todos;
+
+        newTodos.splice(index, 1);
+
+        this.setState({todos: newTodos});
+    }
     
     render() {
         return <div>
             <AddTodo add={this.addTodo}></AddTodo>
-            <Tasks tasks={this.state.todos} toggle={this.toggleTodo}></Tasks>
+            <Tasks tasks={this.state.todos} toggle={this.toggleTodo} delete={this.delete}></Tasks>
             <Filters></Filters>
         </div>
     }
