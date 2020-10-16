@@ -5,3 +5,21 @@
 .filter {
     margin-top: 20px;
 }
+
+.task {
+    font-size: 18pt;
+}
+
+.addtask {
+    font-size: 18pt;
+}
+
+.add {
+    font-size: 18pt;
+    background-color: white;
+
+}
+
+.add:hover {
+    color: white;
+}

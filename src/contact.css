@@ -1,0 +1,11 @@
+.contactform {
+    widows: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.submitbutton {
+    width: 10%;
+    margin-top: 10px;
+}

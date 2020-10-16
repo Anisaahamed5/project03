@@ -44,7 +44,7 @@ class Contact extends React.Component {
 
     render() {
         return (
-            <>
+            <div className="contactform">
                 <div className="form-group">
                     <label for="firstname">First Name</label>
                     <input type="text" className="form-control" id="firstname" onChange={this.firstname_change} value={this.state.firstname}/>
@@ -65,10 +65,10 @@ class Contact extends React.Component {
                     <input type="textarea" className="form-control" id="comments" onChange={this.comments_change} value={this.state.comments}/>
                 </div>
 
-                <button type="button" className="btn btn-primary">Submit</button>
+                <button type="button" className="btn btn-primary submitbutton">Submit</button>
 
 
-            </>
+            </div>
         );
     }
 

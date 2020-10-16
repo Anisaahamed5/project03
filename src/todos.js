@@ -28,10 +28,10 @@ class AddTodo extends React.Component {
         return (
             <div className="form-group">
                     
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Add task..." onChange={this.task_change} value={this.state.task}/>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onClick={this.submit}>Add</button>
+                    <div className="input-group mb-3">
+                        <input type="text" className="form-control addtask" placeholder="Add task..." onChange={this.task_change} value={this.state.task}/>
+                        <div className="input-group-append">
+                            <button className="btn btn-outline-secondary add" type="button" onClick={this.submit}>Add</button>
                         </div>
                     </div>
                   {/* </div> <span class="input-group-addon">
@@ -66,7 +66,7 @@ function Task(props) {
         props.delete(props.task);
     }
 
-    return <li className="list-group-item">
+    return <li className="list-group-item task">
         <input className="check" type="checkbox" checked={done} onChange={toggleTask}/>
         {text}
         <button className="btn btn-danger float-right" onClick={deleteTask}>Delete</button>
