@@ -27,13 +27,17 @@ class AddTodo extends React.Component {
     render() {
         return (
             <div className="form-group">
-                    <label for="task">Task</label>
-                    <input type="text" className="form-control" id="tasks" onChange={this.task_change} value={this.state.task}/>
                     
-                    <span class="input-group-addon">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Add task..." onChange={this.task_change} value={this.state.task}/>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onClick={this.submit}>Submit</button>
+                        </div>
+                    </div>
+                  {/* </div> <span class="input-group-addon">
                         <button type="button" className="btn btn-primary" onClick={this.submit}>Add</button>
-                    </span>
-            </div>
+                    </span>*/}
+            </div> 
         )
     }
 }
