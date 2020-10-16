@@ -7,18 +7,28 @@ class AddTodo extends React.Component {
 
         this.state = {
             task: "" 
+        
         }
+    
+        this.task_change = this.task_change.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     submit() {
         this.props.add(this.state.task);
     }
 
+    task_change(e) {
+        this.setState({
+            task: e.target.value
+        })
+    }
+
     render() {
         return (
             <div className="form-group">
                     <label for="task">Task</label>
-                    <input type="text" className="form-control" id="tasks" onChange={this.firstname_task} value={this.state.task}/>
+                    <input type="text" className="form-control" id="tasks" onChange={this.task_change} value={this.state.task}/>
                     
                     <span class="input-group-addon">
                         <button type="button" className="btn btn-primary" onClick={this.submit}>Add</button>
@@ -44,9 +54,9 @@ function Task(props) {
     let done = props.task.done;
     let text = props.task.text;
 
-    return <li class="list-group-item">
-        <input type="checkbox" checked={done}/>
-        Text: {text}
+    return <li className="list-group-item">
+        <input className="check" type="checkbox" checked={done}/>
+            {text}
     </li>;
 }
 
