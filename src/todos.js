@@ -42,7 +42,7 @@ function Tasks(props) {
     let tasks = props.tasks;
     
     let elements = tasks.map(function(e) {
-        return <Task task={e}></Task>
+        return <Task task={e} toggle={props.toggle}></Task>
     });
 
     return <ul class="list-group">
@@ -54,9 +54,13 @@ function Task(props) {
     let done = props.task.done;
     let text = props.task.text;
 
+    function toggleTask() {
+        props.toggle(props.task);
+    }
+
     return <li className="list-group-item">
-        <input className="check" type="checkbox" checked={done}/>
-            {text}
+        <input className="check" type="checkbox" checked={done} onChange={toggleTask}/>
+        {text}
     </li>;
 }
 
@@ -70,22 +74,12 @@ class Todos extends React.Component {
 
         this.state = {
             todos: [
-                {
-                    done: true,
-                    text: "Finish 'add todo' form"
-                },
-                {
-                    done: false,
-                    text: "Create todos list"
-                },
-                {
-                    done: false,
-                    text: "Implement filters"
-                }
+                
             ]
         }
 
         this.addTodo = this.addTodo.bind(this);
+        this.toggleTodo = this.toggleTodo.bind(this);
     }
 
     addTodo(text) {
@@ -99,11 +93,23 @@ class Todos extends React.Component {
             todos: newTodos
         });
     }
+
+    toggleTodo(todo) {
+        let index = this.state.todos.indexOf(todo);
+        
+        let newTodos = this.state.todos;
+        newTodos[index] = {
+            done: !todo.done,
+            text: todo.text
+        }
+
+        this.setState({todos: newTodos});
+    }
     
     render() {
         return <div>
             <AddTodo add={this.addTodo}></AddTodo>
-            <Tasks tasks={this.state.todos}></Tasks>
+            <Tasks tasks={this.state.todos} toggle={this.toggleTodo}></Tasks>
             <Filters></Filters>
         </div>
     }
