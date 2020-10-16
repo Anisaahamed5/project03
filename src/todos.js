@@ -45,8 +45,8 @@ class AddTodo extends React.Component {
 function Tasks(props) {
     let tasks = props.tasks;
     
-    let elements = tasks.map(function(e) {
-        return <Task task={e} toggle={props.toggle} delete={props.delete}></Task>
+    let elements = tasks.map(function(task) {
+        return <Task task={task} toggle={props.toggle} delete={props.delete}></Task>
     });
 
     return <ul class="list-group">
@@ -74,23 +74,54 @@ function Task(props) {
 }
 
 function Filters(props) {
-    return <div></div>;
+    function classes(filter) {
+        if(filter == props.filter) {
+            return "btn btn-light active";
+        } else {
+            return "btn btn-light";
+        }
+    }
+
+    function setAll() {
+        props.setFilter(0);
+    }
+
+    function setProgress() {
+        props.setFilter(1);
+
+    }
+
+    function setDone() {
+        props.setFilter(2);
+    }
+
+    return <div className="btn-group filter" role="group" aria-label="Basic example">
+        <button type="button" className={classes(0)} onClick={setAll}>All</button>
+        <button type="button" className={classes(1)} onClick={setProgress}>In Progress</button>
+        <button type="button" className={classes(2)} onClick={setDone}>Completed</button>
+    </div>;
 }
 
 class Todos extends React.Component {
     constructor(props) {
         super(props);
 
+        //Filters: 
+        // 0 - all
+        // 1 - in progress
+        // 2 - completed
         this.state = {
             todos: [
 
-            ]
+            ],
+            filter: 0
         }
 
         this.addTodo = this.addTodo.bind(this);
         this.toggleTodo = this.toggleTodo.bind(this);
         this.delete = this.delete.bind(this);
-
+        this.setFilter = this.setFilter.bind(this);
+        this.getTodos = this.getTodos.bind(this);
     }
 
     addTodo(taskName) {
@@ -125,12 +156,34 @@ class Todos extends React.Component {
 
         this.setState({todos: newTodos});
     }
+
+    setFilter(filter) {
+        this.setState({filter: filter});
+    }
+
+    getTodos() {
+        if(this.state.filter == 0) {
+            return this.state.todos;
+        } else if(this.state.filter == 1) {
+            let filteredTodos = this.state.todos.filter(function(todo) {
+                return todo.done == false;
+            });
+            
+            return filteredTodos;
+        } else if(this.state.filter == 2) {
+            let filteredTodos = this.state.todos.filter(function(todo) {
+                return todo.done;
+            });
+
+            return filteredTodos;
+        }
+    }
     
     render() {
         return <div>
             <AddTodo add={this.addTodo}></AddTodo>
-            <Tasks tasks={this.state.todos} toggle={this.toggleTodo} delete={this.delete}></Tasks>
-            <Filters></Filters>
+            <Tasks tasks={this.getTodos()} toggle={this.toggleTodo} delete={this.delete}></Tasks>
+            <Filters filter={this.state.filter} setFilter={this.setFilter}></Filters>
         </div>
     }
 
